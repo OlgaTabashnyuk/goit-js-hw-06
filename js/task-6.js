@@ -122,7 +122,6 @@ const getSortedUniqueSkills = users => {
     acc.push(...user.skills);
     return acc;
   }, []);
-
   const uniqueSkills = allUsersSkills.filter((item, index, arr) => {
     return arr.indexOf(item) === index;
   });
@@ -134,18 +133,3 @@ const getSortedUniqueSkills = users => {
 
 console.log(getSortedUniqueSkills(users));
 // [ 'adipisicing', 'amet', 'anim', 'commodo', 'culpa', 'elit', 'ex', 'ipsum', 'irure', 'laborum', 'lorem', 'mollit', 'non', 'nostrud', 'nulla', 'proident', 'tempor', 'velit', 'veniam' ]
-
-/*
- *авточек
- */
-// const orders = [
-//   { email: 'solomon@topmail.ua', dish: 'Burger' },
-//   { email: 'artemis@coldmail.net', dish: 'Pizza' },
-//   { email: 'jacob@mail.com', dish: 'Taco' },
-// ];
-
-// // Пиши код ниже этой строки
-// function composeMessage(position) {
-//   const messages = [];
-//   return message;
-// }
