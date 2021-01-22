@@ -87,10 +87,12 @@ console.log(calculateTotalBalance); // 20916
 const getUsersWithFriend = (users, friendName) =>
   users
     .filter(user => user.friends.includes(friendName))
-    .reduce((userWithFriend, user) => {
-      userWithFriend.push(user.name);
-      return userWithFriend;
-    }, []);
+    .map(user => user.name);
+
+// .reduce((userWithFriend, user) => {
+//   userWithFriend.push(user.name);
+//   return userWithFriend;
+// }, []);
 
 // твой код
 // };
@@ -105,10 +107,11 @@ const getNamesSortedByFriendsCount = users =>
   // твой код
   users
     .sort((prev, next) => prev.friends.length - next.friends.length)
-    .reduce((allNames, user) => {
-      allNames.push(user.name);
-      return allNames;
-    }, []);
+    .map(user => user.name); // собираем имена пользователей в  массив
+// .reduce((allNames, user) => {
+//   allNames.push(user.name);
+//   return allNames;
+// }, []);
 
 console.log(getNamesSortedByFriendsCount(users));
 // [ 'Moore Hensley', 'Sharlene Bush', 'Elma Head', 'Carey Barr', 'Blackburn Dotson', 'Sheree Anthony', 'Ross Vazquez' ]
@@ -116,20 +119,29 @@ console.log(getNamesSortedByFriendsCount(users));
 // Задание 10
 
 // Получить массив всех умений всех пользователей (поле skills), при этом не должно быть повторяющихся умений и они должны быть отсортированы в алфавитном порядке.
+// вариант 1
+// const getSortedUniqueSkills = users => {
+// const allUsersSkills =
+//   users.reduce((acc, user) => {
+//   acc.push(...user.skills);
+//   return acc;
+// }, []);
+// const uniqueSkills = allUsersSkills.filter((item, index, arr) => {
+//   return arr.indexOf(item) === index;
+// });
+// вариант 2
+// const allUsersSkills = users.flatMap(user => user.skills); //способ собрать в один массив элементы массивов объекта
+// const uniqueSkills = new Set(allUsersSkills); //вариант отсортировать в массиве уникальные skills
+// return uniqueSkills.sort();
+// };
+
+// вариант 3
 
 const getSortedUniqueSkills = users => {
-  const allUsersSkills = users.reduce((acc, user) => {
-    acc.push(...user.skills);
-    return acc;
-  }, []);
-  const uniqueSkills = allUsersSkills.filter((item, index, arr) => {
-    return arr.indexOf(item) === index;
-  });
-
-  // const allUsersSkills = users.flatMap(user => user.skills); //способ собрать в один массив элементы массивов объекта
-  // const uniqueSkills = new Set(allUsersSkills); //вариант отсортировать в массиве уникальные skills
-  return uniqueSkills.sort();
+  return users
+    .flatMap(user => user.skills)
+    .filter((item, index, arr) => arr.indexOf(item) === index)
+    .sort();
 };
-
 console.log(getSortedUniqueSkills(users));
 // [ 'adipisicing', 'amet', 'anim', 'commodo', 'culpa', 'elit', 'ex', 'ipsum', 'irure', 'laborum', 'lorem', 'mollit', 'non', 'nostrud', 'nulla', 'proident', 'tempor', 'velit', 'veniam' ]
